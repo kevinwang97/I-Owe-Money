@@ -85,45 +85,13 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func addEntry(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "New Entry",
-                                      message: "I owe money to...",
-                                      preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Save", style: .default) {
-            [unowned self] action in
-            
-            guard let nameTextField = alert.textFields?[0],
-                let name = nameTextField.text else {
-                    return
-            }
-            
-            guard let amountTextField = alert.textFields?[1],
-                let amount = Double(amountTextField.text!) else {
-                    return
-            }
-            
-            self.save(name: name, amount: amount)
+    @IBAction func cancelToViewController(segue: UIStoryboardSegue) {
+    }
+    
+    @IBAction func saveDebtDetail(segue: UIStoryboardSegue) {
+        if let debtDetailsViewController = segue.source as? DebtDetailsViewController {
+            self.save(name: debtDetailsViewController.debtee!, amount: debtDetailsViewController.debtAmount!)
         }
-        
-        saveAction.isEnabled = false
-        
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .default)
-        
-        alert.addTextField{ (textField) in
-            textField.placeholder = "Name"
-            textField.addTarget(alert, action: #selector(alert.textDidChangeAlert), for: .editingChanged)
-        }
-        alert.addTextField{ (textField) in
-            textField.placeholder = "Amount ($)"
-            textField.addTarget(alert, action: #selector(alert.textDidChangeAlert), for: .editingChanged)
-        }
-        
-        alert.addAction(cancelAction)
-        alert.addAction(saveAction)
-        
-        present(alert, animated: true)
     }
 }
 
