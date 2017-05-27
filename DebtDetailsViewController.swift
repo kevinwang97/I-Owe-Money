@@ -13,12 +13,16 @@ class DebtDetailsViewController: UITableViewController {
     @IBOutlet weak var done: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     var debtAmount: Double?
     var debtee: String?
+    var due: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        datePicker.minimumDate = Date()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -35,10 +39,9 @@ class DebtDetailsViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "saveDebtDetail" {
-            debugPrint("Hi")
             debtAmount = Double((amountTextField?.text)!)
             debtee = nameTextField?.text
-            debugPrint(debtAmount!)
+            due = datePicker.date
         }
     }
     

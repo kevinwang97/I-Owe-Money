@@ -8,7 +8,12 @@
 
 import UIKit
 
-class MyCell: UITableViewCell {
+class AppTableViewCell: UITableViewCell {
+    
+
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)

@@ -13,13 +13,12 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var people: [NSManagedObject] = []
+    var people: [Person] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "I Owe Money To..."
-        tableView.register(MyCell.self, forCellReuseIdentifier: "Cell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +31,10 @@ class ViewController: UIViewController {
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
+        let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "due", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
             people = try managedContext.fetch(fetchRequest)
@@ -57,11 +59,11 @@ class ViewController: UIViewController {
         do {
             try managedContext.save()
         } catch {
-            print("error : \(error)")
+            print("Unable to remove person")
         }
     }
     
-    func save(name: String, amount: Double) {
+    func save(name: String, amount: Double, due: Date) {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -71,14 +73,16 @@ class ViewController: UIViewController {
         
         let entity = NSEntityDescription.entity(forEntityName: "Person", in: managedContext)!
         
-        let person = NSManagedObject(entity: entity, insertInto: managedContext)
+        let person = Person(entity: entity, insertInto: managedContext)
         
-        person.setValue(name, forKeyPath: "name")
-        person.setValue(amount, forKeyPath: "amount")
+        person.name = name
+        person.amount = amount
+        person.due = due as NSDate
         
         do {
             try managedContext.save()
             people.append(person)
+            people.sort(by: { ($0.due! as Date) < ($1.due! as Date) })
             self.tableView.reloadData()
         } catch {
             print("Failure to save data")
@@ -90,7 +94,8 @@ class ViewController: UIViewController {
     
     @IBAction func saveDebtDetail(segue: UIStoryboardSegue) {
         if let debtDetailsViewController = segue.source as? DebtDetailsViewController {
-            self.save(name: debtDetailsViewController.debtee!, amount: debtDetailsViewController.debtAmount!)
+            self.save(name: debtDetailsViewController.debtee!, amount: debtDetailsViewController.debtAmount!,
+                      due: debtDetailsViewController.due!)
         }
     }
 }
@@ -129,14 +134,21 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AppViewCell
         
         let person = people[indexPath.row]
         
-        let name = person.value(forKeyPath: "name") as? String
-        let amount = person.value(forKeyPath: "amount") as? Double
-        cell.textLabel?.text = name!
-        cell.detailTextLabel?.text = "$" + String(format: "%.2f", amount!)
+        let name = person.name
+        let amount = person.amount
+        let due = person.due
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let dueString = dateFormatter.string(from: due! as Date)
+
+        cell.dueDateLabel.text = dueString
+        cell.nameLabel.text = name
+        cell.amountLabel.text = "$" + String(format: "%.2f", amount)
         return cell
     }
 }
