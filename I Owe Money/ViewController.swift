@@ -15,6 +15,16 @@ class ViewController: UIViewController {
     
     var people: [Person] = []
     
+    func alert() {
+        let debtsDue = people.filter { Calendar.current.isDateInToday($0.due! as Date) }
+        
+        if(debtsDue.count > 0) {
+            let alert = UIAlertController(title: "Debts Due!", message: "You have debts due today! Make sure delete the entry from the table after you have paid the debt.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +51,7 @@ class ViewController: UIViewController {
         } catch {
             print("Could not fetch data")
         }
+        alert()
     }
     
     func remove(index: Int) {
@@ -108,8 +119,8 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        let deletionAlert = UIAlertController(title: "Warning",
-                                              message: "Are you sure?",
+        let deletionAlert = UIAlertController(title: "Delete Debt",
+                                              message: "Are you sure? (Have you paid the debt?)",
                                               preferredStyle: .alert)
         
         deletionAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in

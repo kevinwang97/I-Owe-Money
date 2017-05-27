@@ -32,6 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        if let rootViewController = window?.rootViewController as? UINavigationController {
+            if let viewController = rootViewController.viewControllers.first as? ViewController {
+                debugPrint("WHAT")
+                viewController.alert()
+            }
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
