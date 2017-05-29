@@ -16,7 +16,13 @@ class ViewController: UIViewController {
     var people: [Person] = []
     
     func alert() {
-        let debtsDue = people.filter { Calendar.current.isDateInToday($0.due! as Date) }
+        let debtsDue = people.filter {
+            if $0.due != nil {
+                return Calendar.current.isDateInToday($0.due! as Date)
+            } else {
+                return false
+            }
+        }
         
         if(debtsDue.count > 0) {
             let alert = UIAlertController(title: "Debts Due!", message: "You have debts due today! Make sure delete the entry from the table after you have paid the debt.", preferredStyle: .alert)
@@ -74,7 +80,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func save(name: String, amount: Double, due: Date) {
+    func save(name: String, amount: Double, due: Date?) {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -88,12 +94,22 @@ class ViewController: UIViewController {
         
         person.name = name
         person.amount = amount
-        person.due = due as NSDate
+        if due != nil {
+            person.due = due! as NSDate
+        } else {
+            person.due = nil
+        }
         
         do {
             try managedContext.save()
             people.append(person)
-            people.sort(by: { ($0.due! as Date) < ($1.due! as Date) })
+
+            people.sort {
+                guard let date0 = $0.due else { return false }
+                guard let date1 = $1.due else { return true }
+                return (date0 as Date) < (date1 as Date)
+            }
+
             self.tableView.reloadData()
         } catch {
             print("Failure to save data")
@@ -106,7 +122,7 @@ class ViewController: UIViewController {
     @IBAction func saveDebtDetail(segue: UIStoryboardSegue) {
         if let debtDetailsViewController = segue.source as? DebtDetailsViewController {
             self.save(name: debtDetailsViewController.debtee!, amount: debtDetailsViewController.debtAmount!,
-                      due: debtDetailsViewController.due!)
+                      due: debtDetailsViewController.due)
         }
     }
 }
@@ -155,7 +171,7 @@ extension ViewController: UITableViewDataSource {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
-        let dueString = dateFormatter.string(from: due! as Date)
+        let dueString = (due != nil) ? dateFormatter.string(from: due! as Date) : "No due date"
 
         cell.dueDateLabel.text = dueString
         cell.nameLabel.text = name

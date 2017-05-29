@@ -13,6 +13,8 @@ class DebtDetailsViewController: UITableViewController {
     @IBOutlet weak var done: UIBarButtonItem!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
+    
+    @IBOutlet weak var hasDueDate: UISwitch!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var debtAmount: Double?
@@ -32,6 +34,10 @@ class DebtDetailsViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    @IBAction func dueSliderValChanged(_ sender: UISwitch) {
+        UIView.transition(with: self.datePicker, duration: 0.5, options: .transitionFlipFromTop, animations: { _ in self.datePicker.isHidden = !self.datePicker.isHidden}, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -41,7 +47,9 @@ class DebtDetailsViewController: UITableViewController {
         if segue.identifier == "saveDebtDetail" {
             debtAmount = Double((amountTextField?.text)!)
             debtee = nameTextField?.text
-            due = datePicker.date
+            if hasDueDate.isOn {
+                due = datePicker.date
+            }
         }
     }
     
