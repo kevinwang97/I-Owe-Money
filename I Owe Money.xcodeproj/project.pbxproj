@@ -13,7 +13,7 @@
 		0A12166E1ED23490003031CD /* I_Owe_Money.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A12166C1ED23490003031CD /* I_Owe_Money.xcdatamodeld */; };
 		0A1216701ED23490003031CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A12166F1ED23490003031CD /* Assets.xcassets */; };
 		0A1216731ED23490003031CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A1216711ED23490003031CD /* LaunchScreen.storyboard */; };
-		0A7BA01E1ED51163008E82EF /* DebtDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7BA01D1ED51163008E82EF /* DebtDetailsViewController.swift */; };
+		0A568F671EDCDC4D00942B61 /* DebtDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A568F661EDCDC4D00942B61 /* DebtDetailsViewController.swift */; };
 		0AF755CA1ED8C19F00387D8D /* AppViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF755C91ED8C19F00387D8D /* AppViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +26,7 @@
 		0A12166F1ED23490003031CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A1216721ED23490003031CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A1216741ED23490003031CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A7BA01D1ED51163008E82EF /* DebtDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DebtDetailsViewController.swift; path = ../DebtDetailsViewController.swift; sourceTree = "<group>"; };
+		0A568F661EDCDC4D00942B61 /* DebtDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebtDetailsViewController.swift; sourceTree = "<group>"; };
 		0AF755C91ED8C19F00387D8D /* AppViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +60,7 @@
 		0A1216641ED23490003031CD /* I Owe Money */ = {
 			isa = PBXGroup;
 			children = (
-				0A7BA01D1ED51163008E82EF /* DebtDetailsViewController.swift */,
+				0A568F661EDCDC4D00942B61 /* DebtDetailsViewController.swift */,
 				0A1216651ED23490003031CD /* AppDelegate.swift */,
 				0A1216671ED23490003031CD /* ViewController.swift */,
 				0A1216691ED23490003031CD /* Main.storyboard */,
@@ -148,7 +148,7 @@
 			files = (
 				0A1216681ED23490003031CD /* ViewController.swift in Sources */,
 				0AF755CA1ED8C19F00387D8D /* AppViewCell.swift in Sources */,
-				0A7BA01E1ED51163008E82EF /* DebtDetailsViewController.swift in Sources */,
+				0A568F671EDCDC4D00942B61 /* DebtDetailsViewController.swift in Sources */,
 				0A12166E1ED23490003031CD /* I_Owe_Money.xcdatamodeld in Sources */,
 				0A1216661ED23490003031CD /* AppDelegate.swift in Sources */,
 			);

@@ -85,7 +85,6 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="i60-qt-TFY" secondAttribute="bottom" constant="-44" id="ZFX-yE-Xox"/>
                             <constraint firstItem="i60-qt-TFY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="cys-1M-qwY"/>
                             <constraint firstItem="i60-qt-TFY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="gx9-j1-djK"/>
-                            <constraint firstItem="i60-qt-TFY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="rQk-cC-XUV"/>
                             <constraint firstItem="i60-qt-TFY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="xeA-7G-kcg"/>
                             <constraint firstAttribute="bottom" secondItem="i60-qt-TFY" secondAttribute="bottom" id="y3d-Bt-IUb"/>
                         </constraints>
